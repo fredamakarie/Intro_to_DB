@@ -1,27 +1,37 @@
--- MySQL dump 10.13  Distrib 8.0.43, for Win64 (x86_64)
---
--- Host: localhost    Database: alx_book_store
--- ------------------------------------------------------
--- Server version	8.0.43
+CREATE DATABASE IF NOT EXISTS alx_book_store
+USE alx_book_store
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+CREATE TABLE Books(
+    book_id INT PRIMARY KEY,
+    title VARCHAR(130) NOT NULL,
+    author_id FOREIGN KEY (author_id) REFERENCES Authors(author_id),
+    price DOUBLE(20,2),
+    publication_date DATE
+);
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+CREATE TABLE Authors(
+    author_id INT PRIMARY KEY,
+    author_name VARCHAR(215) 
+    
+);
 
--- Dump completed on 2025-08-15 16:01:09
+CREATE TABLE Customers(
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(215) NOT NULL,
+    email VARCHAR(215) UNIQUE,
+    address TEXT
+);
+
+CREATE TABLE Orders(
+    order_id INT PRIMARY KEY,
+    customer_id FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
+    order_date DATE
+);
+
+CREATE TABLE Order_Details(
+    orderdetailid INT PRIMARY KEY,
+    order_id FOREIGN KEY (order_id) REFERENCES Orders(order_id),
+    book_id FOREIGN KEY (book_id) REFERENCES Books(book_id),
+    quantity DOUBLE
+    
+);

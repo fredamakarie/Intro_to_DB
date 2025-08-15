@@ -16,7 +16,7 @@ cursor=dbconnect.cursor()
 try:
    if  cursor.execute(f"CREATE DATABASE IF NOT EXISTS alx_book_store"):
     print(f"Database alx_book_store created successfully!")
-except TypeError:
+except mysql.connector.Error:
     print(f"Database alx_book_store was not created!")
 
 
