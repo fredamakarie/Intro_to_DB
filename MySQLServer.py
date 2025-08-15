@@ -13,8 +13,12 @@ dbconnect = mysql.connector.connect(
 )
 
 cursor=dbconnect.cursor()
-cursor.execute(f"CREATE DATABASE IF NOT EXISTS {DATABASE}")
-print(f"DATABASE {DATABASE} IS READY")
+try:
+   if  cursor.execute(f"CREATE DATABASE IF NOT EXISTS 'alx_book_store'"):
+    print(f"Database 'alx_book_store' created successfully!")
+except TypeError:
+    print(f"Database 'alx_book_store' was not created!")
+
 
 
 cursor.close()
